@@ -1,10 +1,20 @@
 #!/usr/bin/env python
 
-import sys, time
+import signal
+import sys
+import time
 from daemon import Daemon
 
 class MyDaemon(Daemon):
+    def handler(signum = None, frame = None):
+        """
+        A signal handler for the daemon.
+        """
+        self.delpid()
+        sys.exit(0)
     def run(self):
+        for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
+            signal.signal(sig, self.handler)
         while True:
             time.sleep(1)
 
