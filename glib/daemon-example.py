@@ -6,7 +6,7 @@ import time
 from daemon import Daemon
 
 class MyDaemon(Daemon):
-    def handler(signum = None, frame = None):
+    def handler(self, signum = None, frame = None):
         """
         A signal handler for the daemon.
         """
