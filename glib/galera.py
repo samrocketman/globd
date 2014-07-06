@@ -11,21 +11,22 @@ class Galera:
     self.config_file = config_file
     self.config = self.load_config(config_file)
 
-  def set_value(self, section, key, value):
+  def set_key(self, section, key, value):
     if not self.config:
       return None
 
     try:
       self.config.set(section, key, value)
+      return True
     except ConfigParser.NoSectionError:
       return None
 
-  def get_value(self, section, key):
+  def get_key(self, section, key):
     if not self.config:
       return None
 
     try:
-      self.config.get(section, key)
+      return self.config.get(section, key)
     except ConfigParser.NoSectionError:
       return None
 
@@ -77,6 +78,16 @@ class TestGalera(unittest.TestCase):
   def test_load_config(self):
     galera = Galera(self.good_path) 
     self.assertIsNotNone(galera.config)
+
+  def test_get_key(self):
+    galera = Galera(self.good_path)
+    value = galera.get_key("mysqld", "wsrep_cluster_name")
+    self.assertIsNotNone(value)
+
+  def test_set_key(self):
+    galera = Galera(self.good_path)
+    ret = galera.set_key("mysqld", "wsrep_test", "test")
+    self.assertTrue(ret)
 
   def test_save_config(self):
     galera = Galera(self.good_path)
