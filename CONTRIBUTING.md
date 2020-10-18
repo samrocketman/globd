@@ -11,7 +11,8 @@ globd is Apache 2.0 licensed and accepts contributions via Github pull requests.
 
 This is a rough outline of what a contributor's workflow looks like:
 
-- Create a topic branch from where you want to base your work. This is usually `master`.
+- Create a topic branch from where you want to base your work. This is usually
+  `main`.
 - Make commits of logical units.
 - Make sure your commit messages are in the proper format (see below).
 - Push your changes to a topic branch in your fork of the repository.
